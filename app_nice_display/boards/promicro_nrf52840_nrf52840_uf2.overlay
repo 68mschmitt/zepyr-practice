@@ -1,0 +1,40 @@
+/ {
+    chosen {
+        zephyr,display = &ls0xx_ls013b7dh03;
+    };
+};
+
+&spi2 {
+    status = "okay";
+    status = "okay";
+    pinctrl-0 = <&spi2_default>;
+    pinctrl-1 = <&spi2_sleep>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>; /* D10 */
+
+    ls0xx_ls013b7dh03: ls0xx@0 {
+        compatible = "sharp,ls0xx";
+        spi-max-frequency = <2000000>;
+        reg = <0>;
+        width = <400>;
+        height = <240>;
+    };
+};
+
+&pinctrl {
+    spi2_default: spi2_default {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 22)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 11)>;
+        };
+    };
+
+    spi2_sleep: spi2_sleep {
+        group1 {
+            psels = <NRF_PSEL(SPIM_SCK, 0, 20)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 22)>,
+                    <NRF_PSEL(SPIM_MISO, 0, 11)>;
+        };
+    };
+};

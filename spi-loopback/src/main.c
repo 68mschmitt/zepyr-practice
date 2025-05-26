@@ -13,8 +13,7 @@ static const struct spi_config spi_cfg = {
     .cs = NULL,
 };
 
-int main(void)
-{
+int main(void) {
     const struct device *spi_dev = DEVICE_DT_GET(SPI_DEV_NODE);
 
     if (!device_is_ready(spi_dev)) {

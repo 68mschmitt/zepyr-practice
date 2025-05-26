@@ -6,11 +6,11 @@
     chosen {
         zephyr,display = &gc9a01;
     };
-
+    
     mipi_dbi {
         compatible = "zephyr,mipi-dbi-spi";
-        dc-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
-        reset-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
+        dc-gpios = <&gpio0 22 GPIO_ACTIVE_HIGH>;
+        reset-gpios = <&gpio0 24 GPIO_ACTIVE_LOW>;
         spi-dev = <&spi2>;
         #address-cells = <1>;
         #size-cells = <0>;
@@ -23,7 +23,6 @@
             width = <240>;
             height = <240>;
             display-inversion;
-
         };
     };
 };
@@ -31,17 +30,15 @@
 &pinctrl {
     spi2_default: spi2_default {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 22)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 24)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 6)>; // Optional
+            psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 20)>;
         };
     };
 
     spi2_sleep: spi2_sleep {
         group1 {
-            psels = <NRF_PSEL(SPIM_SCK, 0, 22)>,
-                    <NRF_PSEL(SPIM_MOSI, 0, 24)>,
-                    <NRF_PSEL(SPIM_MISO, 0, 6)>; // Optional
+            psels = <NRF_PSEL(SPIM_SCK, 0, 17)>,
+                    <NRF_PSEL(SPIM_MOSI, 0, 20)>;
                     low-power-enable;
         };
     };
@@ -52,4 +49,14 @@
     pinctrl-0 = <&spi2_default>;
     pinctrl-1 = <&spi2_sleep>;
     pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
+};
+
+&gpio0 {
+	status = "okay";
+	spi-power-init {
+		gpio-hog;
+		gpios = <13 GPIO_ACTIVE_HIGH>;
+		output-high;
+	};
 };
