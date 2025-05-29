@@ -213,5 +213,5 @@ void lv_example_scale_10(void)
     lv_obj_set_style_text_color(hr_value_label, zone_color, 0);
     lv_obj_set_style_text_color(bpm_label, zone_color, 0);
 
-    lv_timer_create(hr_anim_timer_cb, 80, NULL);
+    lv_timer_create(hr_anim_timer_cb, 33, NULL);
 }
